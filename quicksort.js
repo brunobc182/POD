@@ -26,7 +26,7 @@ function quicksort(list) {
 
     if (list.length <= 1) return list;
 
-    var left = [], right = [], pivot = list[0];
+    var left = [], right = [], pivot = list[list.length/2];
     for (var i = 1; i < list.length; i++) {
         list[i] < pivot ? left.push(list[i]) : right.push(list[i]);
     }
@@ -36,5 +36,5 @@ function quicksort(list) {
 var start = new Date();
 var sorted = quicksort(list);
 var finish = new Date();
-// console.log(sorted);
+console.log(sorted);
 console.log("Tempo de Execução " + (finish.getTime() - start.getTime()) + " ms.");
