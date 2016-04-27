@@ -16,32 +16,46 @@
 
 
 //Generate a array of decreasing numbers
-var array = [10, 8, 4, 3, 1, 0];
-// for (var i = 100; i >= 0; i--) {
-//     array.push(i);
-// }
+var array = [];
+for (var i = 5; i >= 0; i--) {
+    array.push(i);
+}
+
+function getMax(array) {
+
+    var max = array[0];
+    for (var i = 0; i < array.length; i++) {
+        if (array[i] > max) {
+            max = array[i];
+        }
+    }
+    return max;
+}
 
 function countingSort(array, min, max) {
-    var i, z = 0, count = [];
+    var i, k = 0, count = [];
 
+    //Conta a qtd de elementos
     for (i = min; i <= max; i++) {
         count[i] = 0;
     }
 
+
+    //Insere a qtd de cada elemento dentro das respectivas posições
     for (i = 0; i < array.length; i++) {
         count[array[i]]++;
     }
 
     for (i = min; i <= max; i++) {
         while (count[i]-- > 0) {
-            array[z++] = i;
+            array[k++] = i;
         }
     }
     return array;
 }
 
 var start = new Date();
-var sortedNumbers = countingSort(array);
+var sortedNumbers = countingSort(array, 0, getMax(array));
 var finish = new Date();
 console.log(sortedNumbers);
 console.log("Tempo de Execução " + (finish.getTime() - start.getTime()) + " ms.");
