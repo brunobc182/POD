@@ -1,25 +1,23 @@
 'use strict';
 
 //Generate a array of random numbers
-/*var list = [];
- for (var i = 0, l = 100000; i < l; i++) {
- list.push(Math.round(Math.random() * l))
- }*/
+var array = [];
+for (var i = 0, l = 100000; i < l; i++) {
+    array.push(Math.round(Math.random() * l))
+}
 
 //Generate a array of ascending numbers
-/*
- var list = [];
- for (var i = 0, l = 5; i < l; i++) {
- list.push(i)
- }
- */
+//var array = [];
+//for (var i = 0, l = 100000; i < l; i++) {
+//    array.push(i)
+//}
 
 
 //Generate a array of decreasing numbers
-var array = [];
-for (var i = 5; i >= 0; i--) {
-    array.push(i);
-}
+//var array = [];
+//for (var i = 100000; i >= 0; i--) {
+//    array.push(i);
+//}
 
 function getMax(array) {
 
@@ -55,7 +53,7 @@ function countingSort(array, min, max) {
 }
 
 var start = new Date();
-var sortedNumbers = countingSort(array, 0, getMax(array));
+countingSort(array, 0, getMax(array));
 var finish = new Date();
-console.log(sortedNumbers);
+//console.log(sortedNumbers);
 console.log("Tempo de Execução " + (finish.getTime() - start.getTime()) + " ms.");
