@@ -16,74 +16,62 @@
 
 
 //Generate a array of decreasing numbers
-var array = [];
+var arr = [];
 for (var i = 100000; i >= 0; i--) {
-    array.push(i);
+    arr.push(i);
 }
 
-/**
- * Heapify an array.
- * @param {Array} array The array to build a heapify.
- * @param {number} heapSize The size of the heap.
- * @param {number} i The index of the array to heapify.
- * @param {function} compare The compare function.
- * @param {function} swap A function to call when the swap operation is
- * performed. This can be used to listen in on internals of the algorithm.
- * @returns The sorted array.
- */
-function heapify(array, heapSize, i, compare, swap) {
-    var left = i * 2 + 1;
-    var right = i * 2 + 2;
-    var largest = i;
 
-    if (left < heapSize && compare(array, left, largest) > 0) {
-        largest = left;
-    }
-    if (right < heapSize && compare(array, right, largest) > 0) {
-        largest = right;
-    }
+//Função que troca elementos
+function swap(data, i, j) {
+    var tmp = data[i];
+    data[i] = data[j];
+    data[j] = tmp;
+}
 
-    if (largest !== i) {
-        swap(array, i, largest);
-        heapify(array, heapSize, largest, compare, swap);
+
+//Ordena o Heap
+function heap_sort(arr) {
+    put_array_in_heap_order(arr);
+    var end = arr.length - 1;
+    while (end > 0) {
+        swap(arr, 0, end);
+        sift_element_down_heap(arr, 0, end);
+        end -= 1
     }
 }
 
-/**
- * Build a heap out of an array.
- * @param {Array} array The array to build a heap on.
- * @param {number} heapSize The size of the heap.
- * @param {function} compare The compare function.
- * @param {function} swap A function to call when the swap operation is
- * performed. This can be used to listen in on internals of the algorithm.
- * @returns The sorted array.
- */
-function buildHeap(array, heapSize, compare, swap) {
-    for (var i = Math.floor(array.length / 2); i >= 0; i--) {
-        heapify(array, heapSize, i, compare, swap);
+
+//Verifica se o vetor é uma estrutura Heap
+function put_array_in_heap_order(arr) {
+    var i;
+    i = arr.length / 2 - 1;
+    i = Math.floor(i);
+    while (i >= 0) {
+        sift_element_down_heap(arr, i, arr.length);
+        i -= 1;
     }
 }
 
-/**
- * Sorts an array using heapsort.
- * @param {Array} array The array to sort.
- * @param {function} compare The compare function.
- * @param {function} swap A function to call when the swap operation is
- * performed. This can be used to listen in on internals of the algorithm.
- * @returns The sorted array.
- */
-function heapsort(array, compare, swap) {
-    var heapSize = array.length;
-    buildHeap(array, heapSize, compare, swap);
-    while (heapSize > 1) {
-        swap(array, 0, --heapSize);
-        heapify(array, heapSize, 0, compare, swap);
-    }
-    return array;
-}
 
+//Verifica se o elemento esta na posição correta, se não estiver ele troca
+function sift_element_down_heap(heap, i, max) {
+    var i_big, c1, c2;
+    while (i < max) {
+        i_big = i;
+        c1 = 2 * i + 1;
+        c2 = c1 + 1;
+        if (c1 < max && heap[c1] > heap[i_big])
+            i_big = c1;
+        if (c2 < max && heap[c2] > heap[i_big])
+            i_big = c2;
+        if (i_big == i) return;
+        swap(heap, i, i_big);
+        i = i_big;
+    }
+}
 var start = new Date();
-var sort = heapsort(array);
+heap_sort(arr);
 var finish = new Date();
-// console.log(sort);
+console.log(arr);
 console.log("Tempo de Execução " + (finish.getTime() - start.getTime()) + " ms.");
